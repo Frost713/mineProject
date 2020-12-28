@@ -84,16 +84,18 @@ public class PBImageDelimitedTextWriter extends PBImageTextWriter {
         String inodeName = inode.getName().toStringUtf8();
         Path path = new Path(parent.isEmpty() ? "/" : parent,
                 inodeName.isEmpty() ? "/" : inodeName);
+        HDFSInfo.put("InodeName",inodeName);
         HDFSInfo.put("Path", path.toString());
+        HDFSInfo.put("ParentPath", parent);
         PermissionStatus p = null;
         boolean isDir = false;
         boolean hasAcl = false;
-
         switch (inode.getType()) {
             case FILE:
                 INodeFile file = inode.getFile();
                 p = getPermission(file.getPermission());
                 hasAcl = file.hasAcl() && file.getAcl().getEntriesCount() > 0;
+                HDFSInfo.put("Type","file");
                 HDFSInfo.put("Replication", file.getReplication());
                 HDFSInfo.put("ModificationTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", CHINA)
                         .format(file.getModificationTime()));
@@ -109,6 +111,7 @@ public class PBImageDelimitedTextWriter extends PBImageTextWriter {
                 INodeDirectory dir = inode.getDirectory();
                 p = getPermission(dir.getPermission());
                 hasAcl = dir.hasAcl() && dir.getAcl().getEntriesCount() > 0;
+                HDFSInfo.put("Type","directory");
                 HDFSInfo.put("Replication", 0);
                 HDFSInfo.put("ModificationTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", CHINA)
                         .format(dir.getModificationTime()));
@@ -119,12 +122,12 @@ public class PBImageDelimitedTextWriter extends PBImageTextWriter {
                 HDFSInfo.put("FileSize", 0);
                 HDFSInfo.put("NSQUOTA", dir.getNsQuota());
                 HDFSInfo.put("DSQUOTA", dir.getDsQuota());
-
                 isDir = true;
                 break;
             case SYMLINK:
                 INodeSymlink s = inode.getSymlink();
                 p = getPermission(s.getPermission());
+                HDFSInfo.put("Type","symlink");
                 HDFSInfo.put("Replication", 0);
                 HDFSInfo.put("ModificationTime", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", CHINA)
                         .format(s.getModificationTime()));

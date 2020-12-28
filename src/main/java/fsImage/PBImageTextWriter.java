@@ -79,14 +79,14 @@ import java.util.*;
  * User can choose between them based on the time/space tradeoffs.
  */
 abstract class PBImageTextWriter implements Closeable {
-      RestHighLevelClient client = new RestHighLevelClient(
-          RestClient.builder(new HttpHost("10.81.125.63",9200,"http"),
-                  new HttpHost("10.81.148.20",9200,"http"),
-                  new HttpHost("10.81.157.13",9200,"http"))
-  );
-//    RestHighLevelClient client = new RestHighLevelClient(
-//            RestClient.builder(new HttpHost("127.0.0.1", 9200, "http"))
-//    );
+//      RestHighLevelClient client = new RestHighLevelClient(
+//          RestClient.builder(new HttpHost("10.81.125.63",9200,"http"),
+//                  new HttpHost("10.81.148.20",9200,"http"),
+//                  new HttpHost("10.81.157.13",9200,"http"))
+//  );
+    RestHighLevelClient client = new RestHighLevelClient(
+            RestClient.builder(new HttpHost("127.0.0.1", 9200, "http"))
+    );
 
 
     public RestHighLevelClient getClient() {
