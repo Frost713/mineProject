@@ -148,6 +148,7 @@ public class PBImageDelimitedTextWriter extends PBImageTextWriter {
         HDFSInfo.put("Permission", dirString + p.getPermission().toString() + aclString);
         HDFSInfo.put("UserName", p.getUserName());
         HDFSInfo.put("GroupName", p.getGroupName());
+        HDFSInfo.put("Area", "china1");
         HDFSInfo.put("ClusterName", "ht_skyhorse_hbase_hdfs");
         HDFSInfo.put("NameSpace", "skyhorse");
         HDFSInfo.put("Protocol", "hdfs");
